@@ -1,19 +1,17 @@
 PKG := $(shell command -v dnf apt)
 PWD := $(shell pwd)
+BUILTS := curl wget
+OBJS := tmux zsh emacs
 
-curl:
-	@sudo $(PKG) install curl
+ifeq ($(PKG),"/usr/bin/dnf")
+	sudo $(PKG) update
+endif
 
-zsh:
-	@sudo $(PKG) install zsh
+.PHONY: install
+install: $(OBJS)
+	@ln -sfvn ${PWD}/dot/tmux.conf ${HOME}/.tmux.conf
+	@ln -sfvn ${PWD}/dot/zshrc ${HOME}/.zshrc
+	@ln -sfvn ${PWD}/dot/vimrc ${HOME}/.vimrc
 
-vim:
-	@sudo $(PKG) install vim
-
-rust: curl
-        ifeq (,$(wildcard ~/.rustup))
-		curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
-        endif
-
-all: zsh
-	@ln -fsvn $(PWD)/dot/zshrc $(HOME)/.zshrc	
+%:
+	sudo ${PKG} install $@
