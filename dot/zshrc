@@ -14,11 +14,9 @@ export WORKSPACE=${WORKSPACE:-$HOME/workspace}
 unsetopt beep
 
 source $ZSH/oh-my-zsh.sh
-source $HOME/miniconda3/etc/profile.d/conda.sh
 source "$HOME/.cargo/env"
+source $HOME/miniconda3/etc/profile.d/conda.sh
 
-
-conda activate $CONDA_DEFAULT_ENV
 
 tsws() {
 	local repo="${1-__missing__}"
@@ -26,13 +24,22 @@ tsws() {
 
 	if [ -d "$fullpath" ]; then
                 if [ -f "$fullpath/.zshenv" ]; then
-			ZDOTDIR=$fullpath zsh -c "ts -s ${repo} -c ${fullpath}"
+		        ts -s ${repo} -c ${fullpath} -e ZDOTDIR=$fullpath
                 else
-			zsh -c "source ${HOME}/.zshrc && ts -s ${repo} -c ${fullpath}"
+		        ts -s ${repo} -c ${fullpath}
                 fi
 	else
 		echo  "Not found $WORKSPACE/$repo."
 	fi
 }
 
+reload_env() {
+	conda activate $CONDA_DEFAULT_ENV
+}
+
 autoload -Uz compinit && compinit
+
+
+reload_env
+
+
