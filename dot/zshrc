@@ -18,7 +18,7 @@ source "$HOME/.cargo/env"
 source $HOME/miniconda3/etc/profile.d/conda.sh
 
 
-tsws() {
+gowsp() {
 	local repo="${1-__missing__}"
 	local fullpath="$WORKSPACE/$repo"
 
