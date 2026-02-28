@@ -16,7 +16,7 @@ alias aug-git-commit='auggie -p "使用 git-commit-generator skill 直接提交�
 alias auggie='_auggie(){
     local name=$(basename "$PWD")
     [ -n "$TMUX" ] && tmux rename-window "auggie-$name"
-    timeout --foreground -k 1s 24h sh -c "command auggie \"$@\"" -- "$@"
+    timeout --foreground -k 1s 24h sh -c "command auggie \"\$@\"" -- "$@"
     [ -n "$TMUX" ] && tmux set-window-option automatic-rename on
 }; _auggie'
 

@@ -1,1 +1,1 @@
-return { 'echasnovski/mini.pairs', version = '*' }
+return { 'echasnovski/mini.pairs', version = '*', opts = {} }

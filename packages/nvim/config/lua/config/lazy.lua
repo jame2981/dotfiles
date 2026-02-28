@@ -32,7 +32,4 @@ require("lazy").setup({
   install = { colorscheme = { "catppuccin-mocha" } },
   -- automatically check for plugin updates
   checker = { enabled = true },
-  git = {
-    url_format = "https://hub.gitmirror.com/https://github.com/%s.git", 
-  }
 })
