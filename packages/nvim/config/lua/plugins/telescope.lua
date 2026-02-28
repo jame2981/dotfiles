@@ -26,7 +26,7 @@ return {
                 layout_strategy = "horizontal",
                 layout_config = { prompt_position = "top" },
                 sorting_strategy = "ascending",
-                file_ignore_patterns = { "node_modules", ".git/", "dist/", "build/" },
+                file_ignore_patterns = { "node_modules/", "vendor/", ".git/", "dist/", "build/" },
             },
             extensions = {
                 fzf = {

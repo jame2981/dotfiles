@@ -28,13 +28,13 @@ return {
             map("]d", vim.diagnostic.goto_next, "Next Diagnostic")
         end
 
-        local lspconfig = require("lspconfig")
         local servers = { "pyright", "gopls", "ts_ls" }
         for _, server in ipairs(servers) do
-            lspconfig[server].setup({
+            vim.lsp.config(server, {
                 capabilities = capabilities,
                 on_attach = on_attach,
             })
         end
+        vim.lsp.enable(servers)
     end,
 }

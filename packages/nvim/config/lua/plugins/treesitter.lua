@@ -1,55 +1,22 @@
--- lua/plugins/treesitter.lua
+-- nvim-treesitter v1.0: 不再自动启动 highlight，需手动在 FileType 时调用
 return {
   "nvim-treesitter/nvim-treesitter",
-  build = ":TSUpdate", -- Automatically update parsers on plugin update
-opts = {
-  highlight = { enable = true },
-  indent = { enable = true },
-  ensure_installed = {
-    "bash",
-    "c",
-    "diff",
-    "html",
-    "javascript",
-    "jsdoc",
-    "json",
-    "jsonc",
-    "lua",
-    "luadoc",
-    "luap",
-    "markdown",
-    "markdown_inline",
-    "printf",
-    "python",
-    "query",
-    "regex",
-    "toml",
-    "tsx",
-    "typescript",
-    "vim",
-    "vimdoc",
-    "xml",
-    "yaml",
-    "go",
-  },
-  incremental_selection = {
-    enable = true,
-    keymaps = {
-      init_selection = "<C-space>",
-      node_incremental = "<C-space>",
-      scope_incremental = false,
-      node_decremental = "<bs>",
-    },
-  },
-  textobjects = {
-    move = {
-      enable = true,
-      goto_next_start = { ["]f"] = "@function.outer", ["]c"] = "@class.outer", ["]a"] = "@parameter.inner" },
-      goto_next_end = { ["]F"] = "@function.outer", ["]C"] = "@class.outer", ["]A"] = "@parameter.inner" },
-      goto_previous_start = { ["[f"] = "@function.outer", ["[c"] = "@class.outer", ["[a"] = "@parameter.inner" },
-      goto_previous_end = { ["[F"] = "@function.outer", ["[C"] = "@class.outer", ["[A"] = "@parameter.inner" },
-    },
-  },
-}
+  lazy = false,
+  build = ":TSUpdate",
+  config = function()
+    require("nvim-treesitter.install").install({
+      "bash", "c", "diff", "go", "html", "javascript", "jsdoc",
+      "json", "lua", "luadoc", "luap", "markdown",
+      "markdown_inline", "printf", "python", "query", "regex",
+      "toml", "tsx", "typescript", "vim", "vimdoc", "xml", "yaml",
+    })
+    -- nvim 0.11 不会自动为第三方 parser 启动 treesitter highlight
+    -- pcall 忽略无 parser 的 filetype
+    vim.api.nvim_create_autocmd("FileType", {
+      callback = function(args)
+        pcall(vim.treesitter.start, args.buf)
+      end,
+    })
+  end,
 }
 

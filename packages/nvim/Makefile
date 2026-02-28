@@ -13,6 +13,11 @@ include $(ROOT)/common/functions.mk
 install: configure
 	$(call sys_install,libfuse2)
 	$(call appimage_install,$(PKG_NAME),$(PKG_URL),$(PKG_VERSION))
+	@if [ -f "$(HOME)/.nvm/nvm.sh" ]; then \
+		. $(HOME)/.nvm/nvm.sh && npm install -g tree-sitter-cli; \
+	else \
+		echo "[warn] nvm not found; install nodejs package first, then re-run nvim install"; \
+	fi
 
 configure:
 	$(call xdg_link,$(PKG_NAME),config,$(XDG_CONFIG_HOME)/nvim)
