@@ -10,3 +10,5 @@ source "$ZSH/oh-my-zsh.sh"
 
 # Dotfiles
 [ -f /home/zhangjian/.local/env.zsh ] && source /home/zhangjian/.local/env.zsh
+
+[[ -s "/home/zhangjian/.gvm/scripts/gvm" ]] && source "/home/zhangjian/.gvm/scripts/gvm"

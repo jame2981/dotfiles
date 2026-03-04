@@ -10,6 +10,9 @@
 PKG_apt_build-essential := build-essential
 PKG_dnf_build-essential := gcc gcc-c++ make
 
+PKG_apt_bison := bison
+PKG_dnf_bison := bison
+
 PKG_apt_cmake := cmake
 PKG_dnf_cmake := cmake
 
