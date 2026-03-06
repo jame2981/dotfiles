@@ -10,12 +10,13 @@ alias oclaude='claude --model=anthropic/claude-opus-4-5'
 alias hclaude='claude --model=anthropic/claude-haiku-4-5'
 alias aliclaude='claude --settings ~/.claude/aliyun-settings.json'
 alias c88claude='claude --settings ~/.claude/code88-settings.json'
+
 aug-git-commit() {
     if [ -z "$(git diff --cached --name-only 2>/dev/null)" ]; then
         echo "暂存区为空，请先使用 git add 添加文件后再提交。"
         return 1
     fi
-    auggie -p "使用 git-commit-generator skill 直接提交修改" -m haiku4.5
+    auggie -p "用 git-commit-generator skill 提交暂存区代码，禁止执行任何 reset/restore/checkout/revert/stash 操作" -m haiku4.5
 }
 
 # auggie — tmux-aware AI tool wrapper

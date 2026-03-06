@@ -7,7 +7,16 @@
 # 1. 系统包安装
 # $(call sys_install,pkg1 pkg2 ...)  — 自动映射包名并安装
 # ----------------------------------------------------------------------------
+define ensure_pkg_install_privileges
+		@if [ "$$(id -u)" -ne 0 ] && ! sudo -n true >/dev/null 2>&1; then \
+			echo "[error] system package installation requires sudo authentication"; \
+			echo "[hint] run 'sudo -v' once, then retry 'make install-<package>'"; \
+			exit 1; \
+		fi
+endef
+
 define sys_install
+	$(call ensure_pkg_install_privileges)
 	$(PKG_UPDATE)
 	$(PKG_INSTALL) $(foreach p,$(1),$(call pkg_name,$(p)))
 endef
