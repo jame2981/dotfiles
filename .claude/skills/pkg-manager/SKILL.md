@@ -159,5 +159,6 @@ uninstall:
    configure:
    	$(call atomic_link,$(DOTFILES_ROOT)/packages/$(PKG_NAME)/shell.zsh,$(LOCAL_SHARE)/dotfiles/shell.d/$(PKG_NAME).zsh)
    ```
-5. **不猜测**：URL、版本号、依赖名必须由用户提供或从官方文档确认
+5. **本地覆盖**：机器专属、不入 git 的配置（如 PS1、公司代理等），写到 `~/.dotfiles.local.zsh`，自动最后加载
+6. **不猜测**：URL、版本号、依赖名必须由用户提供或从官方文档确认
 

@@ -25,3 +25,6 @@ for f in "$HOME/.local/share/dotfiles/shell.d"/*.zsh(N); do
     source "$f"
 done
 
+# --- 加载本地覆盖（机器专属，不入 git）---
+[[ -f "$HOME/.dotfiles.local.zsh" ]] && source "$HOME/.dotfiles.local.zsh"
+
