@@ -18,21 +18,29 @@ LOCAL_SHARE := $(XDG_DATA_HOME)
 STATE_DIR := $(XDG_STATE_HOME)/dotfiles
 
 # --- 系统探测 ---
-OS_ID := $(shell . /etc/os-release 2>/dev/null && echo $$ID)
+UNAME_S := $(shell uname -s)
 
-ifeq ($(OS_ID),$(filter $(OS_ID),ubuntu debian))
-  PKG_MGR     := apt
-  PKG_INSTALL := sudo apt-get install -y
-  PKG_UPDATE  := sudo apt-get update -qq
-else ifeq ($(OS_ID),$(filter $(OS_ID),fedora rhel centos))
-  PKG_MGR     := dnf
-  PKG_INSTALL := sudo dnf install -y
-  PKG_UPDATE  := true
+ifeq ($(UNAME_S),Darwin)
+  OS_ID       := macos
+  PKG_MGR     := brew
+  PKG_INSTALL := brew install
+  PKG_UPDATE  := brew update
 else
-  $(warning Unsupported OS: $(OS_ID). Only apt/dnf systems are supported.)
-  PKG_MGR     := unknown
-  PKG_INSTALL := false
-  PKG_UPDATE  := false
+  OS_ID := $(shell . /etc/os-release 2>/dev/null && echo $$ID)
+  ifeq ($(OS_ID),$(filter $(OS_ID),ubuntu debian))
+    PKG_MGR     := apt
+    PKG_INSTALL := sudo apt-get install -y
+    PKG_UPDATE  := sudo apt-get update -qq
+  else ifeq ($(OS_ID),$(filter $(OS_ID),fedora rhel centos))
+    PKG_MGR     := dnf
+    PKG_INSTALL := sudo dnf install -y
+    PKG_UPDATE  := true
+  else
+    $(warning Unsupported OS: $(OS_ID). Supported: ubuntu/debian, fedora/rhel/centos, macOS.)
+    PKG_MGR     := unknown
+    PKG_INSTALL := false
+    PKG_UPDATE  := false
+  endif
 endif
 
 # --- Shell 配置 ---

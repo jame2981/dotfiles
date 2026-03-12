@@ -11,6 +11,8 @@ ifeq ($(PKG_MGR),apt)
 PKG_REMOVE := sudo apt-get remove -y
 else ifeq ($(PKG_MGR),dnf)
 PKG_REMOVE := sudo dnf remove -y
+else ifeq ($(PKG_MGR),brew)
+PKG_REMOVE := brew uninstall
 else
 PKG_REMOVE := false
 endif

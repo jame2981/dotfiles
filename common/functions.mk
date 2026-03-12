@@ -16,9 +16,20 @@ define ensure_pkg_install_privileges
 endef
 
 define sys_install
-	$(call ensure_pkg_install_privileges)
-	$(PKG_UPDATE)
-	$(PKG_INSTALL) $(foreach p,$(1),$(call pkg_name,$(p)))
+	@_PKGS="$(strip $(filter-out ,$(foreach p,$(1),$(call pkg_name,$(p)))))"; \
+	if [ -z "$$_PKGS" ]; then \
+		echo "[skip] no packages to install (all mapped to empty on $(PKG_MGR))"; \
+	elif [ "$(PKG_MGR)" = "brew" ]; then \
+		brew install $$_PKGS; \
+	else \
+		if [ "$$(id -u)" -ne 0 ] && ! sudo -n true >/dev/null 2>&1; then \
+			echo "[error] system package installation requires sudo authentication"; \
+			echo "[hint] run 'sudo -v' once, then retry 'make install-<package>'"; \
+			exit 1; \
+		fi; \
+		$(PKG_UPDATE); \
+		$(PKG_INSTALL) $$_PKGS; \
+	fi
 endef
 
 # ----------------------------------------------------------------------------
