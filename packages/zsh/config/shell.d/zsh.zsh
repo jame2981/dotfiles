@@ -37,3 +37,13 @@ auggie() {
     [ -n "$TMUX" ] && tmux set-window-option automatic-rename on
 }
 
+claude() {
+    local ip=$(curl -s https://ipinfo.io  | jq .ip | tr -d '"')
+
+    if [[ "$ip" != "$CLAUDE_RUN_IP" ]]; then
+        echo "请先确认访问claude的IP地址当前IP ${ip}, 期望IP${CLAUDE_RUN_IP}"
+        return 1
+    fi
+
+    command claude
+}
