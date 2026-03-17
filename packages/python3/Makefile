@@ -22,7 +22,7 @@ install: configure
 		uv python install $(PKG_VERSION) && \
 		echo "[install] Python $(PKG_VERSION) installed via uv"
 	@# Create pip/pip3 symlinks pointing to uv-managed Python's pip
-	@UV_PY_DIR="$$(ls -d $(HOME)/.local/share/uv/python/cpython-$(PKG_VERSION)*-linux-*-gnu 2>/dev/null | sort -V | tail -1)"; \
+	@UV_PY_DIR="$$(ls -d $(HOME)/.local/share/uv/python/cpython-$(PKG_VERSION)*/ 2>/dev/null | sort -V | tail -1)"; \
 	if [ -n "$$UV_PY_DIR" ] && [ -x "$$UV_PY_DIR/bin/pip3" ]; then \
 		ln -sfn "$$UV_PY_DIR/bin/pip3" "$(LOCAL_BIN)/pip3"; \
 		ln -sfn "$$UV_PY_DIR/bin/pip3" "$(LOCAL_BIN)/pip"; \
