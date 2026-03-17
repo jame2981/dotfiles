@@ -26,8 +26,6 @@ alias gp='git push'
 alias gl='git log --oneline --graph -20'
 alias gd='git diff'
 
-# --- Python ---
-alias pip='uv pip'
 
 # --- Dotfiles 快捷 ---
 alias dot='cd $HOME/code/github/dotfiles'
