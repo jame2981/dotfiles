@@ -16,8 +16,18 @@ aug-git-commit() {
         echo "暂存区为空，请先使用 git add 添加文件后再提交。"
         return 1
     fi
-    auggie -p "用 git-commit-generator skill 提交暂存区代码，禁止执行任何 reset/restore/checkout/revert/stash 操作" -m haiku4.5
+    auggie -p "用 git-commit-generator skill 直接提交暂存区代码，禁止执行任何 reset/restore/checkout/revert/stash 操作。请直接执行 commit 命令，跳过所有交互式确认，实现全自动提交" -m haiku4.5
 }
+
+cc-git-commit() {
+    if [ -z "$(git diff --cached --name-only 2>/dev/null)" ]; then
+        echo "暂存区为空，请先使用 git add 添加文件后再提交。"
+        return 1
+    fi
+    claude -p "用 git-commit-generator skill 直接提交暂存区代码，禁止执行任何 reset/restore/checkout/revert/stash 操作。请直接执行 commit 命令，跳过所有交互式确认，实现全自动提交" --model haiku
+}
+
+
 
 # auggie — tmux-aware AI tool wrapper
 auggie() {
