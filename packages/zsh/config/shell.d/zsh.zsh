@@ -24,7 +24,7 @@ cc-git-commit() {
         echo "暂存区为空，请先使用 git add 添加文件后再提交。"
         return 1
     fi
-    claude -p "用 git-commit-generator skill 直接提交暂存区代码，禁止执行任何 reset/restore/checkout/revert/stash 操作。请直接执行 commit 命令，跳过所有交互式确认，实现全自动提交" --model haiku
+    claude -p "用 git-commit-generator skill 直接提交暂存区代码，禁止执行任何 reset/restore/checkout/revert/stash 操作。请直接执行 commit 命令，跳过所有交互式确认，实现全自动提交" --model sonnet
 }
 
 
