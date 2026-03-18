@@ -45,5 +45,5 @@ claude() {
         return 1
     fi
 
-    command claude
+    command claude "$@"
 }
