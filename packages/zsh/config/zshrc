@@ -6,9 +6,3 @@ source "$ZSH/oh-my-zsh.sh"
 
 # Dotfiles entry point
 [ -f "$HOME/.local/env.zsh" ] && source "$HOME/.local/env.zsh"
-
-
-# Dotfiles
-[ -f /home/zhangjian/.local/env.zsh ] && source /home/zhangjian/.local/env.zsh
-
-[[ -s "/home/zhangjian/.gvm/scripts/gvm" ]] && source "/home/zhangjian/.gvm/scripts/gvm"
