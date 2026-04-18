@@ -6,3 +6,6 @@ source "$ZSH/oh-my-zsh.sh"
 
 # Dotfiles entry point
 [ -f "$HOME/.local/env.zsh" ] && source "$HOME/.local/env.zsh"
+
+# Dotfiles
+[ -f /Users/zhangjian/.local/env.zsh ] && source /Users/zhangjian/.local/env.zsh
