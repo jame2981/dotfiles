@@ -12,6 +12,7 @@ OMZ_URL := https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/instal
 .PHONY: install configure clean uninstall
 
 install: configure
+	$(call sys_install,zsh curl git)
 	@if [ ! -d "$(HOME)/.oh-my-zsh" ]; then \
 		echo "[install] Installing oh-my-zsh..."; \
 		RUNZSH=no CHSH=no KEEP_ZSHRC=yes sh -c "$$(curl -fsSL $(OMZ_URL))"; \

@@ -7,10 +7,7 @@ return {
     { "<leader>e", "<cmd>NvimTreeToggle<cr>", desc = "Toggle NvimTree" },
   },
   config = function()
-    -- disable netrw (recommended by nvim-tree)
-    vim.g.loaded_netrw = 1
-    vim.g.loaded_netrwPlugin = 1
-
+    -- netrw is already disabled in init.lua
     require("nvim-tree").setup({
       view = { width = 30 },
       renderer = { group_empty = true },

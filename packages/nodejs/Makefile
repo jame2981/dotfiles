@@ -13,6 +13,8 @@ include $(ROOT)/common/functions.mk
 .PHONY: install configure clean uninstall
 
 install: configure
+ifneq ($(call check_installed,$(PKG_NAME),$(PKG_VERSION)),yes)
+	$(call sys_install,curl)
 	@if [ ! -f "$(HOME)/.nvm/nvm.sh" ]; then \
 		echo "[install] Installing nvm $(NVM_VERSION)..."; \
 		curl -o- $(NVM_URL) | PROFILE=/dev/null bash; \
@@ -24,6 +26,9 @@ install: configure
 		nvm alias default $(PKG_VERSION) && \
 		npm install -g $(NPM_PACKAGES)
 	$(call mark_installed,$(PKG_NAME),$(PKG_VERSION))
+else
+	@echo "[skip] $(PKG_NAME) $(PKG_VERSION) already installed"
+endif
 
 configure:
 	$(call xdg_link,$(PKG_NAME),shell.zsh,$(LOCAL_SHARE)/dotfiles/shell.d/nodejs.zsh)

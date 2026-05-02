@@ -1,7 +1,8 @@
 # uv + python3 initialization
-# Ensure uv-managed Python takes priority over system Python
-export PATH="$HOME/.local/bin:$PATH"
+# ~/.local/bin is already in PATH via env.zsh
 
 # uv shell completion
-eval "$(uv generate-shell-completion zsh 2>/dev/null)"
-eval "$(uvx --generate-shell-completion zsh 2>/dev/null)"
+if command -v uv &>/dev/null; then
+    eval "$(uv generate-shell-completion zsh 2>/dev/null)"
+    eval "$(uvx --generate-shell-completion zsh 2>/dev/null)"
+fi

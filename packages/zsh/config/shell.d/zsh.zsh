@@ -1,9 +1,7 @@
-# Terminal
-export TERM=xterm-256color
-
-# WSL clipboard
-alias pbcopy='iconv -f UTF-8 -t GBK | /mnt/c/Windows/SysWOW64/clip.exe'
-alias pbpaste='/mnt/c/Windows/SysWOW64/WindowsPowerShell/v1.0/powershell.exe -noprofile -command "Get-Clipboard"'
+# Terminal — only set TERM as fallback, don't override terminal emulators
+if [[ "$TERM" == "dumb" || -z "$TERM" ]]; then
+    export TERM=xterm-256color
+fi
 
 # Claude shortcuts
 alias oclaude='claude --model=anthropic/claude-opus-4-5'
@@ -33,7 +31,11 @@ cc-git-commit() {
 auggie() {
     local name=$(basename "$PWD")
     [ -n "$TMUX" ] && tmux rename-window "auggie-$name"
-    timeout --foreground -k 1s 24h sh -c "command auggie \"\$@\"" -- "$@"
+    if command -v timeout &>/dev/null; then
+        timeout --foreground -k 1s 24h sh -c "command auggie \"\$@\"" -- "$@"
+    else
+        command auggie "$@"
+    fi
     [ -n "$TMUX" ] && tmux set-window-option automatic-rename on
 }
 

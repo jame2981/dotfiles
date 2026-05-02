@@ -1,0 +1,17 @@
+# ============================================================================
+# Brewfile — macOS 专属包清单（跨平台工具由各自的 package 管理）
+# 用法: brew bundle --file=Brewfile
+# ============================================================================
+
+# --- macOS 专属 CLI ---
+brew "coreutils"            # GNU 核心工具（Linux 自带，Mac 需要额外装）
+
+# --- macOS 专属 GUI ---
+cask "appcleaner"           # 应用卸载清理
+cask "rectangle"            # 窗口管理
+
+# --- 字体 ---
+cask "font-jetbrains-mono"
+cask "font-jetbrains-mono-nerd-font"
+cask "font-martian-mono"
+cask "font-martian-mono-nerd-font"

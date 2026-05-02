@@ -14,7 +14,7 @@ return {
         { "<leader>f", group = "file/find" },
         { "<leader>g", group = "git" },
         { "<leader>gh", group = "hunks" },
-        { "<leader>q", group = "quit/session" },
+        { "<leader>Q", group = "quit/session" },
         { "<leader>s", group = "search" },
         { "<leader>u", group = "ui", icon = { icon = "󰙵 ", color = "cyan" } },
         { "<leader>x", group = "diagnostics/quickfix", icon = { icon = "󱖫 ", color = "green" } },
@@ -31,7 +31,7 @@ return {
           end,
         },
         {
-          "<leader>w",
+          "<leader>W",
           group = "windows",
           proxy = "<c-w>",
           expand = function()

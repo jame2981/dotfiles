@@ -8,64 +8,112 @@
 
 # --- 编译工具链 ---
 # macOS: build-essential 对应 xcode-select，通常已预装，留空跳过
-PKG_apt_build-essential  := build-essential
-PKG_dnf_build-essential  := gcc gcc-c++ make
-PKG_brew_build-essential :=
+PKG_apt_build-essential    := build-essential
+PKG_dnf_build-essential    := gcc gcc-c++ make
+PKG_zypper_build-essential := gcc gcc-c++ make
+PKG_brew_build-essential   :=
 
-PKG_apt_bison  := bison
-PKG_dnf_bison  := bison
-PKG_brew_bison := bison
+PKG_apt_bison    := bison
+PKG_dnf_bison    := bison
+PKG_zypper_bison := bison
+PKG_brew_bison   := bison
 
-PKG_apt_cmake  := cmake
-PKG_dnf_cmake  := cmake
-PKG_brew_cmake := cmake
+PKG_apt_cmake    := cmake
+PKG_dnf_cmake    := cmake
+PKG_zypper_cmake := cmake
+PKG_brew_cmake   := cmake
 
 # --- 开发库 ---
-PKG_apt_libncurses-dev  := libncurses-dev
-PKG_dnf_libncurses-dev  := ncurses-devel
-PKG_brew_libncurses-dev := ncurses
+PKG_apt_libncurses-dev    := libncurses-dev
+PKG_dnf_libncurses-dev    := ncurses-devel
+PKG_zypper_libncurses-dev := ncurses-devel
+PKG_brew_libncurses-dev   := ncurses
 
-PKG_apt_libevent-dev  := libevent-dev
-PKG_dnf_libevent-dev  := libevent-devel
-PKG_brew_libevent-dev := libevent
+PKG_apt_libevent-dev    := libevent-dev
+PKG_dnf_libevent-dev    := libevent-devel
+PKG_zypper_libevent-dev := libevent-devel
+PKG_brew_libevent-dev   := libevent
 
-PKG_apt_libssl-dev  := libssl-dev
-PKG_dnf_libssl-dev  := openssl-devel
-PKG_brew_libssl-dev := openssl
+PKG_apt_libssl-dev    := libssl-dev
+PKG_dnf_libssl-dev    := openssl-devel
+PKG_zypper_libssl-dev := libopenssl-devel
+PKG_brew_libssl-dev   := openssl
 
 # macOS AppImage 需要 libfuse2，brew 上等价为 macfuse（需 cask）
-PKG_apt_libfuse2  := libfuse2
-PKG_dnf_libfuse2  := fuse
-PKG_brew_libfuse2 :=
+PKG_apt_libfuse2    := libfuse2
+PKG_dnf_libfuse2    := fuse
+PKG_zypper_libfuse2 := fuse
+PKG_brew_libfuse2   :=
 
 # --- 常用工具 ---
-PKG_apt_git  := git
-PKG_dnf_git  := git
-PKG_brew_git := git
+PKG_apt_git    := git
+PKG_dnf_git    := git
+PKG_zypper_git := git
+PKG_brew_git   := git
 
-PKG_apt_curl  := curl
-PKG_dnf_curl  := curl
-PKG_brew_curl := curl
+PKG_apt_curl    := curl
+PKG_dnf_curl    := curl
+PKG_zypper_curl := curl
+PKG_brew_curl   := curl
 
-PKG_apt_wget  := wget
-PKG_dnf_wget  := wget
-PKG_brew_wget := wget
+PKG_apt_wget    := wget
+PKG_dnf_wget    := wget
+PKG_zypper_wget := wget
+PKG_brew_wget   := wget
 
-PKG_apt_unzip  := unzip
-PKG_dnf_unzip  := unzip
-PKG_brew_unzip := unzip
+PKG_apt_unzip    := unzip
+PKG_dnf_unzip    := unzip
+PKG_zypper_unzip := unzip
+PKG_brew_unzip   := unzip
 
-PKG_apt_ripgrep  := ripgrep
-PKG_dnf_ripgrep  := ripgrep
-PKG_brew_ripgrep := ripgrep
+PKG_apt_ripgrep    := ripgrep
+PKG_dnf_ripgrep    := ripgrep
+PKG_zypper_ripgrep := ripgrep
+PKG_brew_ripgrep   := ripgrep
 
-PKG_apt_fd-find  := fd-find
-PKG_dnf_fd-find  := fd-find
-PKG_brew_fd-find := fd
+PKG_apt_fd-find    := fd-find
+PKG_dnf_fd-find    := fd-find
+PKG_zypper_fd-find := fd
+PKG_brew_fd-find   := fd
 
-PKG_apt_jq  := jq
-PKG_dnf_jq  := jq
-PKG_brew_jq := jq
+PKG_apt_jq    := jq
+PKG_dnf_jq    := jq
+PKG_zypper_jq := jq
+PKG_brew_jq   := jq
+
+# --- 容器 ---
+PKG_apt_docker    := docker.io
+PKG_dnf_docker    := docker
+PKG_zypper_docker := docker
+PKG_brew_docker   := docker
+
+PKG_apt_docker-compose    := docker-compose-plugin
+PKG_dnf_docker-compose    := docker-compose-plugin
+PKG_zypper_docker-compose := docker-compose-plugin
+PKG_brew_docker-compose   := docker-compose
+
+# --- 数据库 ---
+PKG_apt_libpq    := libpq-dev
+PKG_dnf_libpq    := libpq-devel
+PKG_zypper_libpq := postgresql-devel
+PKG_brew_libpq   := libpq
+
+# --- Shell ---
+PKG_apt_zsh    := zsh
+PKG_dnf_zsh    := zsh
+PKG_zypper_zsh := zsh
+PKG_brew_zsh   := zsh
+
+PKG_apt_tmux    := tmux
+PKG_dnf_tmux    := tmux
+PKG_zypper_tmux := tmux
+PKG_brew_tmux   := tmux
+
+# --- PDF ---
+PKG_apt_poppler    := poppler-utils
+PKG_dnf_poppler    := poppler-utils
+PKG_zypper_poppler := poppler-tools
+PKG_brew_poppler   := poppler
 
 # --- 映射函数 ---
 # $(call pkg_name,通用名) → 当前发行版对应的包名

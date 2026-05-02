@@ -3,7 +3,7 @@ PKG_NAME    := golang
 PKG_VERSION := go1.24.3
 GVM_VERSION := master
 GVM_URL     := https://raw.githubusercontent.com/moovweb/gvm/$(GVM_VERSION)/binscripts/gvm-installer
-PKG_DEPS    := bison curl git
+PKG_DEPS    := curl git
 
 ROOT := $(abspath $(dir $(lastword $(MAKEFILE_LIST)))/../..)
 include $(ROOT)/config.mk
@@ -17,8 +17,8 @@ SHELL := /bin/bash
 .PHONY: install configure clean uninstall
 
 install: configure
-	@command -v bison >/dev/null 2>&1 && echo "[skip] system deps already installed" || \
-		{ $(PKG_UPDATE) && $(PKG_INSTALL) bison curl git; }
+ifneq ($(call check_installed,$(PKG_NAME),$(PKG_VERSION)),yes)
+	$(call sys_install,$(PKG_DEPS))
 	@if [ ! -f "$(HOME)/.gvm/scripts/gvm" ]; then \
 		echo "[install] Installing gvm..."; \
 		curl -fsSL $(GVM_URL) | PROFILE=/dev/null bash; \
@@ -30,6 +30,9 @@ install: configure
 		gvm use $(PKG_VERSION) --default && \
 		echo "[install] $(PKG_VERSION) set as default"
 	$(call mark_installed,$(PKG_NAME),$(PKG_VERSION))
+else
+	@echo "[skip] $(PKG_NAME) $(PKG_VERSION) already installed"
+endif
 
 configure:
 	$(call xdg_link,$(PKG_NAME),shell.zsh,$(LOCAL_SHARE)/dotfiles/shell.d/golang.zsh)

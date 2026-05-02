@@ -14,11 +14,11 @@ install: configure
 ifneq ($(OS_ID),macos)
 	@echo "[skip] $(PKG_NAME): macOS only"
 else
-	@if launchctl list 2>/dev/null | grep -q '$(PLIST_LABEL)'; then \
-		launchctl unload "$(PLIST_FILE)" 2>/dev/null || true; \
-	fi
-	@launchctl load "$(PLIST_FILE)"
-	@echo "[install] $(PKG_NAME): LaunchAgent loaded"
+	@launchctl unload "$(PLIST_FILE)" 2>/dev/null || true
+	@launchctl load -w "$(PLIST_FILE)"
+	@/bin/bash "$(LOCAL_BIN)/keyswap.sh"
+	@echo "[install] $(PKG_NAME): LaunchAgent loaded, key mapping applied"
+	$(call mark_installed,$(PKG_NAME),1.0)
 endif
 
 configure:

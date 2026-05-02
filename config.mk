@@ -35,8 +35,12 @@ else
     PKG_MGR     := dnf
     PKG_INSTALL := sudo dnf install -y
     PKG_UPDATE  := true
+  else ifeq ($(OS_ID),$(filter $(OS_ID),opensuse-leap opensuse-tumbleweed sles))
+    PKG_MGR     := zypper
+    PKG_INSTALL := sudo zypper install -y
+    PKG_UPDATE  := sudo zypper refresh
   else
-    $(warning Unsupported OS: $(OS_ID). Supported: ubuntu/debian, fedora/rhel/centos, macOS.)
+    $(warning Unsupported OS: $(OS_ID). Supported: ubuntu/debian, fedora/rhel/centos, opensuse/sles, macOS.)
     PKG_MGR     := unknown
     PKG_INSTALL := false
     PKG_UPDATE  := false

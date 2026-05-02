@@ -1,5 +1,5 @@
-# packages/tmux/Makefile
-PKG_NAME := tmux
+# packages/poppler/Makefile
+PKG_NAME := poppler
 
 ROOT := $(abspath $(dir $(lastword $(MAKEFILE_LIST)))/../..)
 include $(ROOT)/config.mk
@@ -17,12 +17,10 @@ else
 endif
 
 configure:
-	$(call xdg_link,$(PKG_NAME),config,$(XDG_CONFIG_HOME)/$(PKG_NAME))
+	@echo "[configure] $(PKG_NAME): nothing to configure"
 
 clean:
 	@echo "[clean] $(PKG_NAME): nothing to clean"
 
 uninstall:
-	@rm -f "$(XDG_CONFIG_HOME)/$(PKG_NAME)"
 	$(call uninstall_pkg,$(PKG_NAME),)
-
