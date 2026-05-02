@@ -3,12 +3,10 @@
 # ============================================================================
 
 # --- PATH 工具函数 ---
-# 幂等 prepend：仅当目录不在 PATH 中时才添加到最前面
+# 无条件 prepend：始终添加到最前面，由 path_dedup 兜底去重
+# 这样可以正确处理"覆盖优先级"——后 prepend 的路径会排在更前面
 path_prepend() {
-    case ":${PATH}:" in
-        *:"$1":*) ;;
-        *) export PATH="$1:$PATH" ;;
-    esac
+    export PATH="$1:$PATH"
 }
 
 # 全局去重：保留首次出现的顺序，清除后续重复项
@@ -52,6 +50,9 @@ done
 # --- 加载本地覆盖（机器专属，不入 git）---
 [[ -f "$HOME/.dotfiles.local.zsh" ]] && source "$HOME/.dotfiles.local.zsh"
 
-# --- 兜底去重：清理第三方工具（gvm、nvm 等）带来的 PATH 重复 ---
+# --- 最终 PATH 整理 ---
+# 重新 prepend ~/.local/bin 确保它在所有第三方工具之前（最高优先级）
+path_prepend "$HOME/.local/bin"
+# 去重：保留首次出现（最前面的），清除后续重复项
 path_dedup
 
