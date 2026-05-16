@@ -6,11 +6,11 @@ fi
 # Format claude --stream-json output as readable conversation
 claude-view-stream() {
     jq --unbuffered -r '
-    select(.type == "assistant" or .type == "user") |
-    if .type == "assistant" then
-        "assistant: " + (.message.content[] | select(.type == "text") | .text // "")
-    elif .type == "user" then
-        "user: " + (.message.content[] | select(.type == "text") | .text // "")
+    select(.type == "assistant" or .type == "user" or .type == "system") |
+    (.type as $t | (.message.content // [])[] | select(.type == "text") | .text // "") |
+    if $t == "assistant" then "assistant: \(.)"
+    elif $t == "user" then "user: \(.)"
+    elif $t == "system" then "system: \(.)"
     else empty end
     ' | sed -u '/^$/d'
 }
