@@ -3,6 +3,18 @@ if [[ "$TERM" == "dumb" || -z "$TERM" ]]; then
     export TERM=xterm-256color
 fi
 
+# Format claude --stream-json output as readable conversation
+claude-view-stream() {
+    jq -r '
+    select(.type == "assistant" or .type == "user") |
+    if .type == "assistant" then
+        "assistant: " + (.message.content[] | select(.type == "text") | .text // "")
+    elif .type == "user" then
+        "user: " + (.message.content[] | select(.type == "text") | .text // "")
+    else empty end
+    ' | sed '/^$/d'
+}
+
 # Claude shortcuts
 alias oclaude='claude --model=anthropic/claude-opus-4-5'
 alias hclaude='claude --model=anthropic/claude-haiku-4-5'
