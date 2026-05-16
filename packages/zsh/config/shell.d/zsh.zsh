@@ -7,11 +7,15 @@ fi
 claude-view-stream() {
     jq --unbuffered -r '
     select(.type == "assistant" or .type == "user" or .type == "system") |
-    (.type as $t | (.message.content // [])[] | select(.type == "text") | .text // "") |
-    if $t == "assistant" then "assistant: \(.)"
-    elif $t == "user" then "user: \(.)"
-    elif $t == "system" then "system: \(.)"
-    else empty end
+    if .type == "system" then
+        "system: \(.subtype // "?") model=\(.model // "?") cwd=\(.cwd // "?")"
+    elif .type == "assistant" or .type == "user" then
+        . as $ev | (($ev.message // {}).content // [])[]? |
+        select((.type? // "") == "text") | .text // empty |
+        "\($ev.type): \(.)"
+    else
+        "\(.type): \(. | tostring)"
+    end
     ' | sed -u '/^$/d'
 }
 
