@@ -89,7 +89,7 @@ PKG_brew_docker   := docker
 
 PKG_apt_docker-compose    := docker-compose-plugin
 PKG_dnf_docker-compose    := docker-compose-plugin
-PKG_zypper_docker-compose := docker-compose-plugin
+PKG_zypper_docker-compose := docker-compose
 PKG_brew_docker-compose   := docker-compose
 
 # --- 数据库 ---

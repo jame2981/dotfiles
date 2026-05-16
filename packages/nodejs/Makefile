@@ -1,7 +1,8 @@
 # packages/nodejs/Makefile
 PKG_NAME    := nodejs
-PKG_VERSION := 22
+PKG_VERSION := --lts
 NVM_VERSION := v0.40.4
+NVM_DIR     := $(HOME)/.config/nvm
 NVM_URL     := https://raw.githubusercontent.com/nvm-sh/nvm/$(NVM_VERSION)/install.sh
 NPM_PACKAGES := tree-sitter-cli @bufbuild/buf opencode-ai @augmentcode/auggie
 
@@ -15,15 +16,16 @@ include $(ROOT)/common/functions.mk
 install: configure
 ifneq ($(call check_installed,$(PKG_NAME),$(PKG_VERSION)),yes)
 	$(call sys_install,curl)
-	@if [ ! -f "$(HOME)/.nvm/nvm.sh" ]; then \
+	@mkdir -p $(NVM_DIR)
+	@if [ ! -f "$(NVM_DIR)/nvm.sh" ]; then \
 		echo "[install] Installing nvm $(NVM_VERSION)..."; \
-		curl -o- $(NVM_URL) | PROFILE=/dev/null bash; \
+		curl -o- $(NVM_URL) | PROFILE=/dev/null NVM_DIR=$(NVM_DIR) bash; \
 	else \
 		echo "[skip] nvm already installed"; \
 	fi
-	@. $(HOME)/.nvm/nvm.sh && \
+	@. $(NVM_DIR)/nvm.sh && \
 		nvm install $(PKG_VERSION) && \
-		nvm alias default $(PKG_VERSION) && \
+		nvm alias default node && \
 		npm install -g $(NPM_PACKAGES)
 	$(call mark_installed,$(PKG_NAME),$(PKG_VERSION))
 else
@@ -37,7 +39,6 @@ clean:
 	@echo "[clean] $(PKG_NAME): nothing to clean"
 
 uninstall:
-	@rm -rf $(HOME)/.nvm
+	@rm -rf $(NVM_DIR)
 	@rm -f $(LOCAL_SHARE)/dotfiles/shell.d/nodejs.zsh
 	$(call uninstall_pkg,$(PKG_NAME),)
-
