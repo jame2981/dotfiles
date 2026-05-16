@@ -5,14 +5,14 @@ fi
 
 # Format claude --stream-json output as readable conversation
 claude-view-stream() {
-    jq -r '
+    jq --unbuffered -r '
     select(.type == "assistant" or .type == "user") |
     if .type == "assistant" then
         "assistant: " + (.message.content[] | select(.type == "text") | .text // "")
     elif .type == "user" then
         "user: " + (.message.content[] | select(.type == "text") | .text // "")
     else empty end
-    ' | sed '/^$/d'
+    ' | sed -u '/^$/d'
 }
 
 # Claude shortcuts
