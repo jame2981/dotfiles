@@ -1,6 +1,11 @@
 # uv + python3 initialization
 # ~/.local/bin is already in PATH via env.zsh
 
+# Override system PYTHONSTARTUP (/etc/pythonstart) with a compatible version
+if [ -f "${XDG_CONFIG_HOME:-$HOME/.config}/python/pythonstartup.py" ]; then
+    export PYTHONSTARTUP="${XDG_CONFIG_HOME:-$HOME/.config}/python/pythonstartup.py"
+fi
+
 # uv shell completion
 if command -v uv &>/dev/null; then
     eval "$(uv generate-shell-completion zsh 2>/dev/null)"

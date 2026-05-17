@@ -65,6 +65,9 @@ clean-%: ## 清理指定包: make clean-tmux
 uninstall-%: ## 卸载指定包: make uninstall-tmux
 	@$(MAKE) -C "packages/$*" uninstall
 
+reinstall-%: ## 重装指定包: make reinstall-tmux
+	@$(MAKE) -C "packages/$*" reinstall
+
 # --- 信息 ---
 list: ## 列出所有已发现的包
 	@echo "Discovered packages:"
