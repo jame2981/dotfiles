@@ -22,3 +22,5 @@ keybind = super+shift+v=paste_from_clipboard
 # === Misc ===
 keybind = super+shift+f=start_search
 keybind = alt+enter=toggle_fullscreen
+
+font-size = 18
