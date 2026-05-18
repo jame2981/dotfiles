@@ -60,13 +60,17 @@ else
 endif
 
 configure:
-	$(call xdg_link,$(PKG_NAME),config,$(XDG_CONFIG_HOME)/ghostty)
+	$(call xdg_link,$(PKG_NAME),config/config,$(XDG_CONFIG_HOME)/ghostty/config)
+	$(call xdg_link,$(PKG_NAME),config/macos,$(XDG_CONFIG_HOME)/ghostty/macos)
+	$(call xdg_link,$(PKG_NAME),config/linux,$(XDG_CONFIG_HOME)/ghostty/linux)
 	$(call xdg_link,$(PKG_NAME),shell.zsh,$(SHELL_D)/ghostty.zsh)
 
 clean:
 	@echo "[clean] $(PKG_NAME): nothing to clean"
 
 uninstall:
-	@rm -f "$(XDG_CONFIG_HOME)/ghostty"
+	@rm -f "$(XDG_CONFIG_HOME)/ghostty/config"
+	@rm -f "$(XDG_CONFIG_HOME)/ghostty/macos"
+	@rm -f "$(XDG_CONFIG_HOME)/ghostty/linux"
 	@rm -f "$(SHELL_D)/ghostty.zsh"
 	$(call uninstall_pkg,$(PKG_NAME),)
