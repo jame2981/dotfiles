@@ -2,6 +2,9 @@
 # env.zsh — Dotfiles 统一入口（由 make shell-setup 自动注入 ~/.zshrc）
 # ============================================================================
 
+# --- SSH 会话 TERM 修正：远程机器缺少 Ghostty terminfo 时自动回退 ---
+[[ -n "$SSH_TTY" && "$TERM" == xterm-ghostty ]] && export TERM=xterm-256color
+
 # --- PATH 工具函数 ---
 # 强制插入：清除 PATH 中所有同名条目，再插到最前面（唯一且第一）
 path_insert() {
