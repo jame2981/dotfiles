@@ -12,7 +12,13 @@ OMZ_URL := https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/instal
 .PHONY: install configure clean uninstall
 
 install: configure
-	$(call sys_install,zsh curl git)
+	$(call sys_install,zsh curl git git-lfs)
+	@if command -v git >/dev/null 2>&1 && git lfs version >/dev/null 2>&1; then \
+		git lfs install --skip-repo; \
+	else \
+		echo "[error] git-lfs installation failed: git lfs not found in PATH"; \
+		exit 1; \
+	fi
 	@if [ ! -d "$(HOME)/.oh-my-zsh" ]; then \
 		echo "[install] Installing oh-my-zsh..."; \
 		RUNZSH=no CHSH=no KEEP_ZSHRC=yes sh -c "$$(curl -fsSL $(OMZ_URL))"; \
@@ -33,4 +39,3 @@ uninstall:
 	@rm -f "$(LOCAL_SHARE)/dotfiles/shell.d/zsh.zsh"
 	@rm -f "$(STATE_DIR)/$(PKG_NAME)"
 	@echo "[uninstall] $(PKG_NAME) removed"
-

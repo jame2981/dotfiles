@@ -51,6 +51,11 @@ PKG_dnf_git    := git
 PKG_zypper_git := git
 PKG_brew_git   := git
 
+PKG_apt_git-lfs    := git-lfs
+PKG_dnf_git-lfs    := git-lfs
+PKG_zypper_git-lfs := git-lfs
+PKG_brew_git-lfs   := git-lfs
+
 PKG_apt_curl    := curl
 PKG_dnf_curl    := curl
 PKG_zypper_curl := curl
@@ -118,4 +123,3 @@ PKG_brew_poppler   := poppler
 # --- 映射函数 ---
 # $(call pkg_name,通用名) → 当前发行版对应的包名
 pkg_name = $(or $(PKG_$(PKG_MGR)_$(1)),$(1))
-
