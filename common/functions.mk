@@ -38,10 +38,7 @@ endef
 # ----------------------------------------------------------------------------
 define atomic_link
 	@mkdir -p $(dir $(2))
-	@if [ -e "$(2)" ] && [ ! -L "$(2)" ]; then \
-		echo "[backup] $(2) → $(2).bak.$$(date +%Y%m%d%H%M%S)"; \
-		mv "$(2)" "$(2).bak.$$(date +%Y%m%d%H%M%S)"; \
-	fi
+	@rm -f "$(2)"
 	@ln -sfn "$(1)" "$(2)"
 	@echo "[link] $(1) → $(2)"
 endef
