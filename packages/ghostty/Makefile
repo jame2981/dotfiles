@@ -60,9 +60,14 @@ else
 endif
 
 configure:
-	$(call xdg_link,$(PKG_NAME),config/config,$(XDG_CONFIG_HOME)/ghostty/config)
-	$(call xdg_link,$(PKG_NAME),config/macos,$(XDG_CONFIG_HOME)/ghostty/macos)
-	$(call xdg_link,$(PKG_NAME),config/linux,$(XDG_CONFIG_HOME)/ghostty/linux)
+	@# Symlink ~/.config/ghostty → config/ (Ghostty reads from XDG_CONFIG_HOME)
+	@mkdir -p "$(XDG_CONFIG_HOME)"
+	@if [ ! -L "$(XDG_CONFIG_HOME)/ghostty" ] && [ -d "$(XDG_CONFIG_HOME)/ghostty" ]; then \
+		echo "[configure] $(PKG_NAME): $(XDG_CONFIG_HOME)/ghostty is a real dir, leaving as-is"; \
+	elif [ ! -L "$(XDG_CONFIG_HOME)/ghostty" ]; then \
+		ln -sfn "$(DOTFILES_ROOT)/packages/$(PKG_NAME)/config" "$(XDG_CONFIG_HOME)/ghostty"; \
+		echo "[configure] $(PKG_NAME): linked $(XDG_CONFIG_HOME)/ghostty → .../config"; \
+	fi
 	$(call xdg_link,$(PKG_NAME),shell.zsh,$(SHELL_D)/ghostty.zsh)
 
 clean:

@@ -1,1 +1,29 @@
-/home/jame2981/Documents/dotfiles/packages/ghostty/config/linux
+# === Tab ===
+keybind = ctrl+t=new_tab
+keybind = ctrl+shift+w=close_surface
+keybind = ctrl+shift+left_bracket=previous_tab
+keybind = ctrl+shift+right_bracket=next_tab
+keybind = ctrl+1=goto_tab:1
+keybind = ctrl+2=goto_tab:2
+keybind = ctrl+3=goto_tab:3
+keybind = ctrl+4=goto_tab:4
+keybind = ctrl+5=goto_tab:5
+
+# === Split ===
+keybind = ctrl+shift+d=new_split:right
+keybind = ctrl+shift+s=new_split:down
+keybind = ctrl+shift+q=close_surface
+
+# === Split Nav (vim-style) ===
+keybind = ctrl+shift+h=goto_split:left
+keybind = ctrl+shift+j=goto_split:down
+keybind = ctrl+shift+k=goto_split:up
+keybind = ctrl+shift+l=goto_split:right
+
+# === Clipboard ===
+keybind = ctrl+shift+c=copy_to_clipboard
+keybind = ctrl+shift+v=paste_from_clipboard
+
+# === Misc ===
+keybind = ctrl+shift+f=start_search
+keybind = alt+enter=toggle_fullscreen
