@@ -17,3 +17,6 @@ export NVM_DIR="$HOME/.config/nvm"
 [[ -s "/home/jame2981/.gvm/scripts/gvm" ]] && source "/home/jame2981/.gvm/scripts/gvm"
 
 . "$HOME/.local/share/../bin/env"
+
+# Dotfiles
+[ -f /Users/zhangjian/.local/env.zsh ] && source /Users/zhangjian/.local/env.zsh

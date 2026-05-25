@@ -8,7 +8,7 @@ elif [ -d "/usr/local/opt/libpq" ]; then
 fi
 
 if [ -n "$_libpq_prefix" ]; then
-    path_prepend "$_libpq_prefix/bin"
+    path_insert "$_libpq_prefix/bin"
     export LDFLAGS="${LDFLAGS:+$LDFLAGS }-L$_libpq_prefix/lib"
     export CPPFLAGS="${CPPFLAGS:+$CPPFLAGS }-I$_libpq_prefix/include"
     export PKG_CONFIG_PATH="${PKG_CONFIG_PATH:+$PKG_CONFIG_PATH:}$_libpq_prefix/lib/pkgconfig"
